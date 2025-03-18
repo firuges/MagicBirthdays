@@ -1,0 +1,740 @@
+/* Tema Infantil para el sistema de invitaciones */
+
+:root {
+    --kids-primary: #ff5722;
+    --kids-secondary: #03a9f4;
+    --kids-accent: #8bc34a;
+    --kids-yellow: #ffeb3b;
+    --kids-pink: #e91e63;
+    --kids-purple: #9c27b0;
+    --kids-orange: #ff9800;
+    --kids-dark: #455a64;
+    --kids-light: #ffffff;
+    --kids-shadow: rgba(0, 0, 0, 0.2);
+    --kids-gradient: linear-gradient(45deg, var(--kids-primary), var(--kids-pink));
+    --kids-text: #455a64;
+}
+
+/* Fondo y encabezado */
+body {
+    background-color: #f9f9f9;
+    color: var(--kids-text);
+    font-family: 'Comic Sans MS', 'Marker Felt', 'Arial Rounded MT Bold', sans-serif;
+    background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff9800' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+header {
+    background: var(--kids-gradient);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px var(--kids-shadow);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    border: 5px solid white;
+}
+
+/* Header decorations */
+header::before,
+header::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    z-index: 0;
+    opacity: 0.1;
+}
+
+header::before {
+    background-color: var(--kids-yellow);
+    top: -50px;
+    left: -50px;
+}
+
+header::after {
+    background-color: var(--kids-secondary);
+    bottom: -50px;
+    right: -50px;
+}
+
+/* Estilos de texto */
+.title {
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 0px var(--kids-dark);
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+}
+
+/* Badge de edad */
+.age-badge {
+    display: inline-block;
+    background: var(--kids-yellow);
+    color: var(--kids-dark);
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    margin: 0.8rem 0;
+    border: 3px solid white;
+    box-shadow: 0 4px 8px var(--kids-shadow);
+    position: relative;
+    z-index: 1;
+    transform: rotate(-3deg);
+    animation: bounce-light 3s infinite alternate;
+}
+
+@keyframes bounce-light {
+    0%, 100% { transform: rotate(-3deg) scale(1); }
+    50% { transform: rotate(-3deg) scale(1.05); }
+}
+
+/* Cuenta regresiva */
+.countdown {
+    background-color: white;
+    color: var(--kids-text);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 5px 15px var(--kids-shadow);
+    position: relative;
+    z-index: 1;
+    border: 3px dashed var(--kids-accent);
+}
+
+.countdown::before {
+    content: "🎂";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px var(--kids-shadow);
+    z-index: 2;
+}
+
+.countdown-item {
+    margin: 0 1rem;
+    position: relative;
+    background-color: var(--kids-secondary);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 80px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.countdown-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: block;
+    color: white;
+    text-shadow: 2px 2px 0 var(--kids-dark);
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Tarjetas */
+.card, section {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px var(--kids-shadow);
+    overflow: hidden;
+    border: none;
+    position: relative;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--kids-gradient);
+}
+
+.card h2, section h2 {
+    color: var(--kids-primary);
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.card h2::after, section h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background: var(--kids-gradient);
+    border-radius: 3px;
+}
+
+/* Perfiles de homenajeados */
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: var(--kids-secondary);
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 0 auto 1rem;
+    box-shadow: 0 8px 15px var(--kids-shadow);
+    border: 5px solid white;
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+.profile-image-1 {
+    background-color: var(--kids-primary);
+}
+
+.profile-image-2 {
+    background-color: var(--kids-secondary);
+}
+
+.profile-image-3 {
+    background-color: var(--kids-purple);
+}
+
+.celebrant h3 {
+    color: var(--kids-dark);
+    font-weight: bold;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+.celebrant p {
+    color: var(--kids-text);
+}
+
+/* Selector de homenajeados */
+.celebrant-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.celebrant-option {
+    flex: 1;
+    min-width: 120px;
+}
+
+.celebrant-option input[type="radio"] {
+    display: none;
+}
+
+.option-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    background-color: #f5f5f5;
+    border: 3px solid #e0e0e0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.option-label:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.celebrant-option input[type="radio"]:checked + .option-label {
+    border-color: var(--kids-secondary);
+    background-color: rgba(3, 169, 244, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.mini-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--kids-secondary);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.celebrant-option:nth-child(1) .mini-profile {
+    background-color: var(--kids-primary);
+}
+
+.celebrant-option:nth-child(2) .mini-profile {
+    background-color: var(--kids-secondary);
+}
+
+.celebrant-option:nth-child(3) .mini-profile {
+    background-color: var(--kids-purple);
+}
+
+/* Notas y elementos destacados */
+.note {
+    background-color: rgba(255, 235, 59, 0.2);
+    border-radius: 15px;
+    border-left: 5px solid var(--kids-yellow);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.note h4 {
+    color: var(--kids-dark);
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+}
+
+.joke {
+    background-color: rgba(3, 169, 244, 0.1);
+    border-left: 5px solid var(--kids-secondary);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    position: relative;
+}
+
+.theme-reveal {
+    background: linear-gradient(to right, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1));
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    border: 3px dashed var(--kids-pink);
+}
+
+.theme-reveal h4 {
+    color: var(--kids-pink);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.theme-reveal::after {
+    content: "🎈";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+}
+
+/* Cuenta bancaria */
+.bank-account {
+    background-color: rgba(255, 152, 0, 0.1);
+    border: 3px dashed var(--kids-orange);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    position: relative;
+}
+
+.bank-account h4 {
+    color: var(--kids-orange);
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.bank-account::before,
+.bank-account::after {
+    content: "💰";
+    position: absolute;
+    font-size: 24px;
+}
+
+.bank-account::before {
+    top: 15px;
+    left: 15px;
+}
+
+.bank-account::after {
+    bottom: 15px;
+    right: 15px;
+}
+
+.bank-account-number {
+    background-color: white;
+    border: 2px solid var(--kids-orange);
+    color: var(--kids-dark);
+    border-radius: 8px;
+    padding: 0.8rem;
+    font-family: monospace;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    display: inline-block;
+    margin: 0.5rem 0;
+    font-weight: bold;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Botones y formularios */
+.btn {
+    background: var(--kids-gradient);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), transparent);
+    transform: skewX(-15deg) translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.btn:hover::after {
+    transform: skewX(-15deg) translateX(100%);
+}
+
+input, select, textarea {
+    background-color: #f8f8f8;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    color: var(--kids-text);
+    transition: all 0.3s ease;
+    padding: 0.8rem;
+    font-size: 1rem;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--kids-secondary);
+    box-shadow: 0 0 0 3px rgba(3, 169, 244, 0.2);
+    outline: none;
+}
+
+label {
+    color: var(--kids-dark);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Checkbox personalizado */
+.checkbox-container input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #f8f8f8;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+    background-color: var(--kids-accent);
+    border-color: var(--kids-accent);
+}
+
+.checkbox-container input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container span {
+    margin-left: 8px;
+    color: var(--kids-text);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 3px dashed #e0e0e0;
+    color: var(--kids-text);
+    font-style: italic;
+}
+
+.footer .fa-heart {
+    color: var(--kids-pink);
+    animation: heartbeat 1.5s ease infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Carrusel - Tema Kids */
+.carousel-container {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border: 5px solid white;
+    margin: 2rem 0;
+}
+
+.carousel {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.carousel-control {
+    background-color: var(--kids-primary);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    border: 2px solid white;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.carousel-control:hover {
+    background-color: var(--kids-secondary);
+    transform: scale(1.1);
+}
+
+.carousel-prev {
+    left: 20px;
+}
+
+.carousel-next {
+    right: 20px;
+}
+
+.carousel-indicators {
+    bottom: 20px;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-indicator.active {
+    background-color: white;
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.carousel-caption {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    border-radius: 0 0 10px 10px;
+    padding: 15px;
+    font-weight: bold;
+}
+
+/* Mensajes de confirmación/error */
+.success-message {
+    background-color: rgba(139, 195, 74, 0.2);
+    border: 2px solid var(--kids-accent);
+    color: #33691e;
+    border-radius: 10px;
+    padding: 1rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+    background-color: rgba(244, 67, 54, 0.2);
+    border: 2px solid #f44336;
+    color: #b71c1c;
+    border-radius: 10px;
+    padding: 1rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Animaciones y elementos decorativos */
+.confetti {
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+/* WhatsApp button */
+.whatsapp-btn {
+    background: linear-gradient(45deg, #25D366, #128C7E) !important;
+    color: white !important;
+    font-weight: bold !important;
+    border-radius: 50px !important;
+    padding: 0.8rem 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3) !important;
+}
+
+.whatsapp-btn:hover {
+    background: linear-gradient(45deg, #1da851, #0d7163) !important;
+    box-shadow: 0 6px 12px rgba(37, 211, 102, 0.4) !important;
+}
+
+/* Página de agradecimiento */
+.thank-you-card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.thank-you-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: var(--kids-gradient);
+}
+
+.thank-you-card h1 {
+    color: var(--kids-primary);
+    font-size: 2.5rem;
+    margin: 1.5rem 0;
+    font-weight: bold;
+}
+
+.icon-container {
+    font-size: 4rem;
+    margin: 1.5rem 0;
+    color: var(--kids-accent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.2rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .age-badge {
+        font-size: 1.2rem;
+    }
+    
+    .countdown-item {
+        margin: 0 0.5rem;
+        min-width: 60px;
+    }
+    
+    .countdown-value {
+        font-size: 1.8rem;
+    }
+    
+    .carousel-control {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        font-size: 3rem;
+    }
+}
+
+/* Small mobile optimizations */
+@media (max-width: 480px) {
+    .countdown {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .countdown-item {
+        margin: 0.3rem;
+        min-width: 70px;
+    }
+    
+    .card, section {
+        padding: 1.2rem;
+    }
+    
+    .profile-image {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+    }
+}

@@ -18,7 +18,7 @@ const eventoConfig = {
     },
     
     // Tema visual (opciones: "neon", "floral", "elegant", "rustic", "kids")
-    tema: "elegant",
+    tema: "kids",
     
     // Cumpleañeros (agregar o quitar según sea necesario)
     cumpleaneros: [
@@ -48,10 +48,13 @@ const eventoConfig = {
     // Frases y mensajes personalizables
     mensajes: {
         bienvenida: "¡Estamos cumpliendo años y queremos celebrarlo contigo!",
+        mensajeBroma: "¿Por qué decidimos celebrar nuestro cumpleaños juntas? Porque una sola fiesta = ¡triple diversión y un tercio de los gastos! (La sabiduría financiera llega con la edad 😂)",
         codigoVestimenta: "Para darle un toque especial a la fiesta, nos encantaría que uses algo blanco en tu vestimenta.",
         invitacion: "Únete a nuestra celebración el [fecha] a las [hora] en [ubicacion].",
         confirmacion: "Por favor confirma tu asistencia. ¡Nos encantaría contar contigo!",
-        agradecimiento: "¡Gracias por confirmar! Hemos recibido tu respuesta y estamos ansiosos por verte brillar en la fiesta."
+        agradecimiento: "¡Gracias por confirmar! Hemos recibido tu respuesta y estamos ansiosos por verte brillar en la fiesta.",
+        temaFiestaTitulo: "¡SORPRESA! Fiesta Temática de Neón",
+        temaFiestaDescripcion: "¡A los 40 años hemos decidido que es hora de brillar más que nunca! Habrá una decoración que te transportará a los clubes de los 90s (pero con sillas cómodas disponibles para todos, porque sabemos lo que importa 😉)."
     },
     
     // Opciones de formulario
@@ -74,6 +77,38 @@ const eventoConfig = {
     contacto: {
         email: "arq.scasertap@gmail.com",
         telefono: "+598 91 234 567"
+    },
+
+    carrusel: {
+        // Si es false, el carrusel no se mostrará
+        mostrar: true,
+        
+        // Rotación automática
+        autoRotacion: true,
+        intervalo: 5000, // milisegundos
+        
+        // Modal de imagen ampliada
+        modalImagen: true,
+        
+        // Imágenes del carrusel (rutas relativas a la raíz del proyecto)
+        imagenes: [
+            {
+                src: 'assets/carousel/imagen1.png',
+                caption: 'Hermoso salón donde celebraremos'
+            },
+            {
+                src: 'assets/carousel/imagen2.png',
+                caption: 'Momentos inolvidables nos esperan'
+            },
+            {
+                src: 'assets/carousel/imagen3.png',
+                caption: 'Celebrando juntos esta fecha especial'
+            },
+            {
+                src: 'assets/carousel/imagen4.png',
+                caption: 'No te pierdas esta fiesta única'
+            }
+        ]
     }
 };
 

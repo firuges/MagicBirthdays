@@ -494,3 +494,61 @@ label {
         padding: 1.5rem;
     }
 }
+
+.carousel-container {
+    border: 1px solid var(--elegant-gold);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.carousel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--elegant-gold), transparent);
+    z-index: 5;
+}
+
+.carousel::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--elegant-gold), transparent);
+    z-index: 5;
+}
+
+.carousel-control {
+    background-color: var(--elegant-charcoal);
+    color: var(--elegant-gold);
+    border: 1px solid var(--elegant-gold);
+}
+
+.carousel-control:hover {
+    background-color: var(--elegant-gold);
+    color: var(--elegant-dark);
+}
+
+.carousel-indicator {
+    width: 20px;
+    height: 3px;
+    border-radius: 0;
+    background-color: rgba(212, 175, 55, 0.3);
+}
+
+.carousel-indicator.active {
+    background-color: var(--elegant-gold);
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-top: 1px solid var(--elegant-gold-dark);
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}

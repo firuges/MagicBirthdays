@@ -264,3 +264,37 @@ input:focus, select:focus, textarea:focus {
 .footer .fa-heart {
     color: var(--neon-pink);
 }
+
+/* Carrusel - Tema Neón */
+.carousel-container {
+    border: 1px solid var(--neon-pink);
+    box-shadow: 0 0 15px var(--neon-blue), 0 0 25px var(--neon-pink);
+}
+
+.carousel-control {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+    color: black;
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--neon-pink);
+}
+
+.carousel-control:hover {
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+    box-shadow: 0 0 15px var(--neon-blue), 0 0 25px var(--neon-pink);
+}
+
+.carousel-indicator {
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 5px var(--neon-blue);
+}
+
+.carousel-indicator.active {
+    background-color: var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green);
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-top: 1px solid var(--neon-pink);
+    text-shadow: 0 0 5px var(--neon-blue);
+}

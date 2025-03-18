@@ -281,3 +281,40 @@ input:focus, select:focus, textarea:focus {
     opacity: 0.7;
     border-radius: 50%;
 }
+
+.carousel-container {
+    border: 1px solid var(--floral-pink-dark);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.carousel {
+    border-radius: 12px;
+}
+
+.carousel-control {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--floral-purple-dark);
+    border: 1px solid var(--floral-pink-dark);
+}
+
+.carousel-control:hover {
+    background-color: var(--floral-purple-dark);
+    color: white;
+}
+
+.carousel-indicator {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--floral-pink-dark);
+}
+
+.carousel-indicator.active {
+    background-color: var(--floral-purple-dark);
+}
+
+.carousel-caption {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    border: none;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+}

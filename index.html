@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/components/countdown.css">
     <link rel="stylesheet" href="css/components/forms.css">
     <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/carousel.css">
     
     <!-- El tema se cargará dinámicamente desde JavaScript -->
     <link id="theme-stylesheet" rel="stylesheet" href="">
@@ -51,7 +52,26 @@
                 </div>
             </div>
         </header>
-
+        <div class="carousel-container" id="event-carousel-container">
+            <div class="carousel" id="event-carousel">
+                <div class="carousel-track" id="carousel-track">
+                    <!-- Las diapositivas se generarán dinámicamente desde JavaScript -->
+                </div>
+                
+                <!-- Controles de navegación -->
+                <button class="carousel-control carousel-prev" id="carousel-prev" aria-label="Anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-control carousel-next" id="carousel-next" aria-label="Siguiente">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <!-- Indicadores de posición -->
+                <div class="carousel-indicators" id="carousel-indicators">
+                    <!-- Los indicadores se generarán dinámicamente -->
+                </div>
+            </div>
+        </div>
         <main>
             <!-- Sección de bienvenida -->
             <section id="welcome-section" class="card">
@@ -161,6 +181,7 @@
     <script src="js/countdown.js"></script>
     <script src="js/form-handler.js"></script>
     <script src="js/whatsapp.js"></script>
+    <script src="js/carousel.js"></script>
     
     <!-- Script principal para inicializar la página -->
     <script>
@@ -197,6 +218,9 @@
             
             // Configurar mensajes
             document.getElementById('welcome-message').textContent = eventoConfig.mensajes.bienvenida;
+
+            // Configurar joke
+            document.getElementById('welcome-joke').textContent = eventoConfig.mensajes.mensajeBroma;
             
             // Configurar información de contacto
             document.getElementById('contact-info').innerHTML = `¿Preguntas? Contacta a <a href="mailto:${eventoConfig.contacto.email}">${eventoConfig.contacto.email}</a>`;
@@ -239,6 +263,13 @@
                 <p>${eventoConfig.mensajes.codigoVestimenta}</p>
             `;
             
+            document.getElementById('theme-reveal').innerHTML = `
+                <h4 style="color: var(--neon-blue);" class="neon-text">¡SORPRESA! Fiesta Temática de Neón</h4>
+                <p>¡A los 40 años hemos decidido que es hora de brillar más que nunca! Habrá una decoración que te transportará a los clubes de los 90s (pero con sillas cómodas disponibles para todos, porque sabemos lo que importa 😉).</p>
+            `;
+
+            // Configurar theme-reveal
+            configureThemeReveal();
             // Configurar límite para confirmar asistencia
             if (eventoConfig.formulario.limiteSenaleAsistencia) {
                 const limitDate = new Date(eventoConfig.formulario.limiteSenaleAsistencia);
@@ -395,6 +426,55 @@
                 container.appendChild(confetti);
             }
         }
+
+        function configureThemeReveal() {
+    const themeReveal = document.getElementById('theme-reveal');
+    
+    if (!themeReveal || !eventoConfig.mensajes) return;
+    
+    // Verificar si existen los mensajes de tema
+    if (eventoConfig.mensajes.temaFiestaTitulo) {
+        const themeRevealTitle = document.createElement('h4');
+        
+        // Aplicar estilos específicos según el tema seleccionado
+        switch (eventoConfig.tema) {
+            case 'neon':
+                themeRevealTitle.className = 'neon-text';
+                themeRevealTitle.style.color = 'var(--neon-blue)';
+                break;
+            case 'elegant':
+                themeRevealTitle.style.color = 'var(--elegant-gold)';
+                break;
+            case 'floral':
+                themeRevealTitle.style.color = 'var(--floral-purple-dark)';
+                break;
+            case 'rustic':
+                themeRevealTitle.style.color = 'var(--rustic-wood)';
+                break;
+            case 'kids':
+                themeRevealTitle.style.color = 'var(--kids-pink)';
+                break;
+            default:
+                // Estilo por defecto
+                themeRevealTitle.style.color = '#333';
+        }
+        
+        themeRevealTitle.textContent = eventoConfig.mensajes.temaFiestaTitulo;
+        
+        const themeRevealDesc = document.createElement('p');
+        themeRevealDesc.textContent = eventoConfig.mensajes.temaFiestaDescripcion || '';
+        
+        // Limpiar contenido existente
+        themeReveal.innerHTML = '';
+        
+        // Agregar elementos
+        themeReveal.appendChild(themeRevealTitle);
+        themeReveal.appendChild(themeRevealDesc);
+    } else {
+        // Si no hay mensajes de tema, ocultar el contenedor
+        themeReveal.style.display = 'none';
+    }
+}
     </script>
 </body>
 </html>
