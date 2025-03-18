@@ -1,0 +1,496 @@
+/* Tema Elegante para el sistema de invitaciones */
+
+:root {
+    --elegant-gold: #d4af37;
+    --elegant-gold-light: #f1e5b9;
+    --elegant-gold-dark: #9a7d2e;
+    --elegant-burgundy: #800020;
+    --elegant-navy: #000080;
+    --elegant-charcoal: #36454f;
+    --elegant-cream: #fffdd0;
+    --elegant-silver: #c0c0c0;
+    --elegant-dark: #212121;
+    --elegant-light: #f8f8f8;
+    --elegant-white: #ffffff;
+    --elegant-shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Fondo y encabezado */
+body {
+    background-color: var(--elegant-dark);
+    color: var(--elegant-light);
+    font-family: 'Georgia', serif;
+    background-image: 
+        linear-gradient(to bottom, rgba(33, 33, 33, 0.92), rgba(33, 33, 33, 0.92)),
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20 L20 0 L0 0 L0 20 L20 20 Z M0 0 M40 40 L40 20 L20 20 L20 40 L40 40 Z' fill='%23d4af37' fill-opacity='0.05'/%3E%3C/svg%3E");
+}
+
+header {
+    background: linear-gradient(to bottom, var(--elegant-charcoal), var(--elegant-dark));
+    color: var(--elegant-gold);
+    text-align: center;
+    box-shadow: 0 5px 15px var(--elegant-shadow);
+    border: 1px solid var(--elegant-gold);
+    border-width: 0 0 1px 0;
+}
+
+/* Estilos de texto */
+.title {
+    color: var(--elegant-gold);
+    font-family: 'Playfair Display', 'Times New Roman', serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: normal;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: var(--elegant-silver);
+}
+
+/* Badge de edad */
+.age-badge {
+    display: inline-block;
+    background: var(--elegant-gold);
+    color: var(--elegant-dark);
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 0.4rem 1.2rem;
+    border-radius: 3px;
+    margin: 0.8rem 0;
+    border: 1px solid var(--elegant-gold-dark);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-family: 'Georgia', serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.age-badge::before, .age-badge::after {
+    content: "";
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    width: 50%;
+    height: 1px;
+}
+
+.age-badge::before {
+    top: 5px;
+    left: 5px;
+}
+
+.age-badge::after {
+    bottom: 5px;
+    right: 5px;
+}
+
+/* Cuenta regresiva */
+.countdown {
+    background-color: var(--elegant-charcoal);
+    border: 1px solid var(--elegant-gold);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+}
+
+.countdown-item {
+    position: relative;
+    padding: 0.5rem;
+    margin: 0 1rem;
+}
+
+.countdown-item::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -1rem;
+    width: 1px;
+    height: 30px;
+    background-color: var(--elegant-gold-dark);
+    transform: translateY(-50%);
+}
+
+.countdown-item:last-child::after {
+    display: none;
+}
+
+.countdown-value {
+    color: var(--elegant-gold);
+    font-weight: normal;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    text-shadow: none;
+    margin-bottom: 0.2rem;
+}
+
+.countdown-label {
+    color: var(--elegant-light);
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Tarjetas */
+.card, section {
+    background-color: var(--elegant-charcoal);
+    border-radius: 5px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--elegant-gold-dark);
+    position: relative;
+}
+
+.card h2, section h2 {
+    color: var(--elegant-gold);
+    border-bottom: 1px solid var(--elegant-gold-dark);
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: normal;
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Perfiles de homenajeados */
+.profile-image {
+    border: 3px solid var(--elegant-gold);
+    background-color: var(--elegant-charcoal);
+    color: var(--elegant-gold);
+    font-family: 'Playfair Display', serif;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.celebrant h3 {
+    color: var(--elegant-gold);
+    font-family: 'Georgia', serif;
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+.celebrant p {
+    color: var(--elegant-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Selector de homenajeados */
+.celebrant-option .option-label {
+    background-color: var(--elegant-charcoal);
+    border: 1px solid var(--elegant-gold-dark);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.celebrant-option input[type="radio"]:checked + .option-label {
+    background-color: rgba(212, 175, 55, 0.1);
+    border-color: var(--elegant-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.celebrant-option .mini-profile {
+    background-color: var(--elegant-gold);
+    color: var(--elegant-dark);
+    font-family: 'Playfair Display', serif;
+}
+
+.celebrant-option span {
+    color: var(--elegant-gold);
+}
+
+/* Notas y elementos destacados */
+.note {
+    background-color: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--elegant-gold-dark);
+    border-left-width: 3px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.joke {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--elegant-silver);
+    font-style: italic;
+}
+
+.theme-reveal {
+    background: linear-gradient(
+        to bottom,
+        rgba(212, 175, 55, 0.05),
+        rgba(212, 175, 55, 0.02)
+    );
+    border: 1px solid var(--elegant-gold-dark);
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-reveal::before {
+    content: "✦";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: var(--elegant-gold);
+    opacity: 0.5;
+}
+
+/* Cuenta bancaria */
+.bank-account {
+    background-color: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--elegant-gold-dark);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.bank-account::before, .bank-account::after {
+    content: "✦";
+    position: absolute;
+    font-size: 18px;
+    color: var(--elegant-gold);
+    opacity: 0.3;
+}
+
+.bank-account::before {
+    top: 10px;
+    left: 10px;
+}
+
+.bank-account::after {
+    bottom: 10px;
+    right: 10px;
+}
+
+.bank-account-number {
+    color: var(--elegant-light);
+    background-color: var(--elegant-dark);
+    border: 1px solid var(--elegant-gold-dark);
+    border-radius: 3px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    letter-spacing: 2px;
+}
+
+/* Botones y formularios */
+.btn {
+    background-color: var(--elegant-gold);
+    color: var(--elegant-dark);
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Georgia', serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: var(--elegant-gold-dark);
+    color: var(--elegant-light);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+input, select, textarea {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--elegant-silver);
+    border-radius: 3px;
+    color: var(--elegant-light);
+    font-family: 'Georgia', serif;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--elegant-gold);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1), inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+label {
+    color: var(--elegant-silver);
+    font-family: 'Georgia', serif;
+    font-weight: normal;
+    margin-bottom: 0.5rem;
+}
+
+/* Checkbox personalizado */
+.checkbox-container input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--elegant-silver);
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+    background-color: var(--elegant-gold);
+    border-color: var(--elegant-gold-dark);
+}
+
+.checkbox-container input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    color: var(--elegant-dark);
+    font-size: 12px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-container span {
+    color: var(--elegant-light);
+}
+
+/* Footer */
+.footer {
+    color: var(--elegant-silver);
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: var(--elegant-gold);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--elegant-gold-light);
+    text-decoration: underline;
+}
+
+.footer .fa-heart {
+    color: var(--elegant-burgundy);
+}
+
+/* Animaciones y efectos */
+.confetti {
+    opacity: 0.3;
+    background-color: var(--elegant-gold);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+/* Mensajes de estado */
+.success-message {
+    background-color: rgba(0, 128, 0, 0.1);
+    border: 1px solid #006400;
+    color: #98FB98;
+}
+
+.error-message {
+    background-color: rgba(139, 0, 0, 0.1);
+    border: 1px solid #8B0000;
+    color: #FFA07A;
+}
+
+/* Página de agradecimiento */
+.thank-you-card {
+    background-color: var(--elegant-charcoal);
+    border: 1px solid var(--elegant-gold);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.thank-you-card h1 {
+    color: var(--elegant-gold);
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: normal;
+    margin-bottom: 1.5rem;
+}
+
+.icon-container i {
+    color: var(--elegant-gold);
+}
+
+/* WhatsApp button - ensure high contrast */
+.whatsapp-btn {
+    background-color: #25D366 !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+
+.whatsapp-btn:hover {
+    background-color: #128C7E !important;
+    color: #FFFFFF !important;
+}
+
+/* Admin dashboard styling */
+.sidebar {
+    background-color: var(--elegant-charcoal);
+    border: 1px solid var(--elegant-gold-dark);
+}
+
+.stat-card {
+    background-color: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--elegant-gold-dark);
+}
+
+.stat-value {
+    color: var(--elegant-gold);
+    font-family: 'Playfair Display', serif;
+}
+
+.main-content {
+    background-color: var(--elegant-charcoal);
+    border: 1px solid var(--elegant-gold-dark);
+}
+
+.guest-list th {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--elegant-gold);
+    border-bottom: 1px solid var(--elegant-gold-dark);
+    font-family: 'Georgia', serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.guest-list td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.guest-details {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-left: 3px solid var(--elegant-gold-dark);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .countdown-value {
+        font-size: 1.8rem;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .card, section {
+        padding: 1.5rem;
+    }
+}

@@ -1,0 +1,266 @@
+/* Tema Neón para el sistema de invitaciones */
+
+:root {
+    --neon-pink: #ff00ff;
+    --neon-blue: #00ffff;
+    --neon-green: #00ff00;
+    --neon-yellow: #ffff00;
+    --neon-purple: #9d00ff;
+}
+
+/* Fondo y encabezado */
+body {
+    background-color: #121212;
+    color: white;
+}
+
+header {
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 15px var(--neon-blue), 0 0 25px var(--neon-pink);
+}
+
+/* Efecto de texto neón */
+.title {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--neon-blue),
+        0 0 20px var(--neon-blue), 0 0 25px var(--neon-blue),
+        0 0 30px var(--neon-blue), 0 0 35px var(--neon-blue);
+    animation: neon-pulse 2s infinite alternate;
+}
+
+@keyframes neon-pulse {
+    0% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--neon-blue),
+            0 0 20px var(--neon-blue), 0 0 25px var(--neon-blue),
+            0 0 30px var(--neon-blue), 0 0 35px var(--neon-blue);
+    }
+    100% {
+        text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 7px var(--neon-blue),
+            0 0 10px var(--neon-blue), 0 0 17px var(--neon-blue),
+            0 0 20px var(--neon-blue), 0 0 25px var(--neon-blue);
+    }
+}
+
+/* Badge de edad */
+.age-badge {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--neon-green);
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    margin: 0.5rem 0;
+    border: 2px solid var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+    animation: pulse-badge 2s infinite alternate;
+}
+
+@keyframes pulse-badge {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px var(--neon-green);
+    }
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+    }
+}
+
+/* Cuenta regresiva */
+.countdown {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green);
+}
+
+.countdown-value {
+    color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+/* Tarjetas con bordes de neón */
+.card {
+    border-left: 3px solid var(--neon-pink);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+}
+
+.card:nth-child(2n) {
+    border-left: 3px solid var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.card:nth-child(3n) {
+    border-left: 3px solid var(--neon-purple);
+    box-shadow: 0 0 15px rgba(157, 0, 255, 0.3);
+}
+
+.card h2 {
+    border-bottom: 2px solid var(--neon-pink);
+}
+
+/* Perfiles de homenajeados */
+.profile-image-1 {
+    border: 4px solid var(--neon-pink);
+    box-shadow: 0 0 15px var(--neon-pink);
+    animation: glow 3s infinite alternate;
+}
+
+.profile-image-2 {
+    border: 4px solid var(--neon-blue);
+    box-shadow: 0 0 15px var(--neon-blue);
+    animation: glow 3s infinite alternate;
+}
+
+.profile-image-3 {
+    border: 4px solid var(--neon-purple);
+    box-shadow: 0 0 15px var(--neon-purple);
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px currentColor;
+    }
+    100% {
+        box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+}
+
+/* Selector de homenajeados */
+.celebrant-option:nth-child(1) .option-label {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 10px var(--neon-pink);
+}
+
+.celebrant-option:nth-child(2) .option-label {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.celebrant-option:nth-child(3) .option-label {
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 10px var(--neon-purple);
+}
+
+.celebrant-option:nth-child(1) .mini-profile {
+    background-color: var(--neon-pink);
+}
+
+.celebrant-option:nth-child(2) .mini-profile {
+    background-color: var(--neon-blue);
+}
+
+.celebrant-option:nth-child(3) .mini-profile {
+    background-color: var(--neon-purple);
+}
+
+.celebrant-option input[type="radio"]:checked + .option-label {
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+}
+
+/* Notas y elementos destacados */
+.note {
+    border-left: 3px solid var(--neon-blue);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.joke {
+    border-left: 3px solid var(--neon-yellow);
+}
+
+.theme-reveal {
+    background: linear-gradient(to right, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-reveal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg,
+            rgba(255, 0, 255, 0.1),
+            rgba(0, 255, 255, 0.1),
+            rgba(157, 0, 255, 0.1),
+            rgba(0, 255, 0, 0.1));
+    animation: gradient-shift 5s infinite alternate;
+    z-index: -1;
+    border-radius: 8px;
+}
+
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Cuenta bancaria */
+.bank-account {
+    border: 2px dashed var(--neon-green);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.bank-account-number {
+    color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+/* Botones y formularios */
+.btn {
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--neon-blue), 0 0 25px var(--neon-pink);
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 8px var(--neon-blue);
+}
+
+/* Checkbox personalizado */
+.checkbox-container input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--neon-blue);
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+    background-color: var(--neon-blue);
+    box-shadow: 0 0 8px var(--neon-blue);
+}
+
+.checkbox-container input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Iconos y decoraciones */
+.footer .fa-heart {
+    color: var(--neon-pink);
+}

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    
+    <!-- Cargar estilos base -->
+    <link rel="stylesheet" href="css/base.css">
+    
+    <!-- El tema se cargará dinámicamente desde JavaScript -->
+    <link id="theme-stylesheet" rel="stylesheet" href="">
+    
+    <!-- Cargar Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        h1 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .admin-panel {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .sidebar h3 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        
+        .filter-section h4 {
+            margin-bottom: 10px;
+        }
+        
+        .filter-option {
+            margin-bottom: 8px;
+        }
+        
+        /* Main content */
+        .main-content {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Guest list */
+        .guest-list {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .guest-list th {
+            text-align: left;
+            padding: 12px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .guest-list td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .guest-list tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .attendance-yes {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .attendance-maybe {
+            color: #ffff00;
+            font-weight: bold;
+        }
+        
+        .attendance-no {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        .guest-details {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border-left: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .detail-item {
+            margin-bottom: 8px;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            width: 120px;
+            display: inline-block;
+        }
+        
+        .expand-btn {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-summary {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .guest-list {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="admin-title">Panel de Administración</h1>
+            <p id="admin-subtitle">Gestión de invitados y confirmaciones</p>
+        </header>
+        
+        <div class="admin-panel">
+            <!-- Sidebar con filtros -->
+            <aside class="sidebar">
+                <h3>Filtros</h3>
+                
+                <div class="filter-section">
+                    <h4>Asistencia</h4>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-confirmed" checked>
+                        <label for="filter-confirmed">Confirmados</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-pending" checked>
+                        <label for="filter-pending">Pendientes</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-declined" checked>
+                        <label for="filter-declined">Rechazados</label>
+                    </div>
+                </div>
+                
+                <div class="filter-section" id="celebrant-filter-section">
+                    <h4>Homenajeado</h4>
+                    <!-- Se generará dinámicamente -->
+                </div>
+                
+                <div class="filter-section">
+                    <h4>Buscar</h4>
+                    <input type="text" id="search-input" placeholder="Nombre o teléfono..." class="search-box">
+                </div>
+                
+                <div class="filter-section">
+                    <button id="export-csv" class="btn">Exportar a CSV</button>
+                </div>
+            </aside>
+            
+            <!-- Contenido principal -->
+            <main class="main-content">
+                <div class="stats-summary">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-guests">0</div>
+                        <div class="stat-label">Total Invitados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="confirmed-guests">0</div>
+                        <div class="stat-label">Confirmados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-attending">0</div>
+                        <div class="stat-label">Total Asistentes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="declined-guests">0</div>
+                        <div class="stat-label">No Asistirán</div>
+                    </div>
+                </div>
+                
+                <table class="guest-list">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Asistencia</th>
+                            <th>Acompañantes</th>
+                            <th>Homenajeado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guest-table-body">
+                        <!-- Se generará dinámicamente -->
+                    </tbody>
+                </table>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Cargar archivos JavaScript -->
+    <script src="js/config.js"></script>
+    <script>
+        // Datos simulados para demostración
+        // En una implementación real, estos datos vendrían de una base de datos o API
+        const mockGuests = [
+            {
+                id: 1,
+                name: "Maria García",
+                phone: "091234567",
+                email: "maria@example.com",
+                attendance: "yes",
+                attendance_text: "¡Asistirá!",
+                attendance_class: "attendance-yes",
+                guests: 2,
+                favorite_celebrant: "Stephanie",
+                message: "¡Felicidades! Estaré ahí con dos acompañantes.",
+                date_time: "15 de marzo de 2025, 14:30"
+            },
+            {
+                id: 2,
+                name: "Juan Pérez",
+                phone: "092345678",
+                email: "juan@example.com",
+                attendance: "no",
+                attendance_text: "No podrá asistir",
+                attendance_class: "attendance-no",
+                guests: 0,
+                favorite_celebrant: "Caterine",
+                message: "Lo siento, no podré asistir. ¡Que tengan un gran día!",
+                date_time: "16 de marzo de 2025, 10:15"
+            },
+            {
+                id: 3,
+                name: "Ana Rodríguez",
+                phone: "093456789",
+                email: "ana@example.com",
+                attendance: "yes",
+                attendance_text: "¡Asistirá!",
+                attendance_class: "attendance-yes",
+                guests: 1,
+                favorite_celebrant: "Paola",
+                message: "¡No me lo pierdo por nada! Llevo un postre.",
+                date_time: "17 de marzo de 2025, 16:40"
+            }
+        ];
+        
+        // Cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar la aplicación
+            initAdminPanel();
+            
+            // Cargar tema
+            if (window.eventoConfig && eventoConfig.tema) {
+                loadTheme(eventoConfig.tema);
+            } else {
+                // Tema por defecto
+                document.getElementById('theme-stylesheet').href = 'css/themes/neon.css';
+            }
+        });
+        
+        // Cargar el tema CSS seleccionado
+        function loadTheme(theme) {
+            const themeStylesheet = document.getElementById('theme-stylesheet');
+            themeStylesheet.href = `css/themes/${theme}.css`;
+        }
+        
+        // Inicializar el panel de administración
+        function initAdminPanel() {
+            // Generar filtros de homenajeados
+            generateCelebrantFilters();
+            
+            // Cargar datos de invitados
+            loadGuestData();
+            
+            // Inicializar los filtros
+            initFilters();
+            
+            // Configurar botón de exportación
+            document.getElementById('export-csv').addEventListener('click', exportGuestsToCsv);
+        }
+        
+        // Generar los filtros de homenajeados
+        function generateCelebrantFilters() {
+            if (!window.eventoConfig || !eventoConfig.cumpleaneros) return;
+            
+            const container = document.getElementById('celebrant-filter-section');
+            
+            // Crear un checkbox para cada homenajeado
+            eventoConfig.cumpleaneros.forEach(celebrant => {
+                const filterOption = document.createElement('div');
+                filterOption.className = 'filter-option';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `filter-${celebrant.nombre.toLowerCase()}`;
+                checkbox.checked = true;
+                checkbox.dataset.celebrant = celebrant.nombre;
+                
+                const label = document.createElement('label');
+                label.htmlFor = checkbox.id;
+                label.textContent = celebrant.nombre;
+                
+                filterOption.appendChild(checkbox);
+                filterOption.appendChild(label);
+                container.appendChild(filterOption);
+                
+                // Agregar evento
+                checkbox.addEventListener('change', filterGuests);
+            });
+        }
+        
+        // Cargar datos de invitados
+        function loadGuestData() {
+            // En una implementación real, aquí se cargarían los datos desde una API o base de datos
+            // Para esta demostración, usamos datos simulados
+            const guests = mockGuests;
+            
+            // Actualizar estadísticas
+            updateStats(guests);
+            
+            // Llenar tabla de invitados
+            populateGuestTable(guests);
+        }
+        
+        // Actualizar estadísticas
+        function updateStats(guests) {
+            const totalGuests = guests.length;
+            
+            const confirmedGuests = guests.filter(guest => guest.attendance === 'yes').length;
+            
+            // Calcular el total de personas que asistirán (invitados + acompañantes)
+            const totalAttending = guests
+                .filter(guest => guest.attendance === 'yes')
+                .reduce((total, guest) => total + 1 + parseInt(guest.guests || 0), 0);
+            
+            const declinedGuests = guests.filter(guest => guest.attendance === 'no').length;
+            
+            // Actualizar la UI
+            document.getElementById('total-guests').textContent = totalGuests;
+            document.getElementById('confirmed-guests').textContent = confirmedGuests;
+            document.getElementById('total-attending').textContent = totalAttending;
+            document.getElementById('declined-guests').textContent = declinedGuests;
+        }
+        
+        // Llenar tabla de invitados
+        function populateGuestTable(guests) {
+            const tableBody = document.getElementById('guest-table-body');
+            tableBody.innerHTML = ''; // Limpiar tabla
+            
+            guests.forEach(guest => {
+                // Crear fila para el invitado
+                const row = document.createElement('tr');
+                row.dataset.id = guest.id;
+                
+                // Contendo de la fila
+                row.innerHTML = `
+                    <td>
+                        <button class="expand-btn" onclick="toggleGuestDetails(${guest.id})">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </td>
+                    <td>${guest.name}</td>
+                    <td>${guest.phone}</td>
+                    <td class="${guest.attendance_class}">${guest.attendance_text}</td>
+                    <td>${guest.guests}</td>
+                    <td>${guest.favorite_celebrant}</td>
+                    <td>${guest.date_time}</td>
+                `;
+                
+                // Fila de detalles (oculta inicialmente)
+                const detailsRow = document.createElement('tr');
+                detailsRow.className = 'guest-details-row';
+                detailsRow.style.display = 'none';
+                
+                const detailsCell = document.createElement('td');
+                detailsCell.colSpan = 7;
+                detailsCell.innerHTML = `
+                    <div class="guest-details" id="guest-details-${guest.id}">
+                        <div class="detail-item">
+                            <span class="detail-label">Email:</span>
+                            <span>${guest.email || 'No proporcionado'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Mensaje:</span>
+                            <span>${guest.message || 'Sin mensaje'}</span>
+                        </div>
+                    </div>
+                `;
+                
+                detailsRow.appendChild(detailsCell);
+                
+                // Agregar filas a la tabla
+                tableBody.appendChild(row);
+                tableBody.appendChild(detailsRow);
+            });
+        }
+        
+        // Mostrar/ocultar detalles de un invitado
+        function toggleGuestDetails(guestId) {
+            const detailsRow = document.querySelector(`tr.guest-details-row[data-id="${guestId}"]`) || 
+                               document.querySelector(`tr[data-id="${guestId}"]`).nextElementSibling;
+            
+            const button = document.querySelector(`tr[data-id="${guestId}"] .expand-btn i`);
+            
+            if (detailsRow.style.display === 'none') {
+                detailsRow.style.display = 'table-row';
+                button.className = 'fas fa-chevron-up';
+            } else {
+                detailsRow.style.display = 'none';
+                button.className = 'fas fa-chevron-down';
+            }
+        }
+        
+        // Inicializar filtros
+        function initFilters() {
+            // Filtros de asistencia
+            document.getElementById('filter-confirmed').addEventListener('change', filterGuests);
+            document.getElementById('filter-pending').addEventListener('change', filterGuests);
+            document.getElementById('filter-declined').addEventListener('change', filterGuests);
+            
+            // Búsqueda por texto
+            document.getElementById('search-input').addEventListener('input', filterGuests);
+        }
+        
+        // Filtrar invitados
+        function filterGuests() {
+            // Obtener estado de los filtros
+            const showConfirmed = document.getElementById('filter-confirmed').checked;
+            const showPending = document.getElementById('filter-pending').checked;
+            const showDeclined = document.getElementById('filter-declined').checked;
+            
+            // Obtener homenajeados seleccionados
+            const celebrantFilters = Array.from(document.querySelectorAll('#celebrant-filter-section input[type="checkbox"]'))
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.dataset.celebrant);
+            
+            // Obtener término de búsqueda
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            // Filtrar invitados
+            const filteredGuests = mockGuests.filter(guest => {
+                // Filtro de asistencia
+                if (guest.attendance === 'yes' && !showConfirmed) return false;
+                if (guest.attendance === 'maybe' && !showPending) return false;
+                if (guest.attendance === 'no' && !showDeclined) return false;
+                
+                // Filtro de homenajeado
+                if (!celebrantFilters.includes(guest.favorite_celebrant)) return false;
+                
+                // Filtro de búsqueda
+                if (searchTerm && 
+                    !guest.name.toLowerCase().includes(searchTerm) && 
+                    !guest.phone.includes(searchTerm) &&
+                    !guest.email.toLowerCase().includes(searchTerm)) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            // Actualizar la tabla con los resultados filtrados
+            populateGuestTable(filteredGuests);
+            
+            // Actualizar estadísticas con los resultados filtrados
+            updateStats(filteredGuests);
+        }
+        
+        // Exportar a CSV
+        function exportGuestsToCsv() {
+            // Obtener invitados filtrados actualmente visibles
+            const guestRows = document.querySelectorAll('#guest-table-body tr:not(.guest-details-row)');
+            const guests = Array.from(guestRows).map(row => {
+                const cells = row.querySelectorAll('td');
+                return {
+                    name: cells[1].textContent,
+                    phone: cells[2].textContent,
+                    attendance: cells[3].textContent,
+                    guests: cells[4].textContent,
+                    favorite_celebrant: cells[5].textContent,
+                    date_time: cells[6].textContent
+                };
+            });
+            
+            // Crear contenido CSV
+            const headers = ['Nombre', 'Teléfono', 'Asistencia', 'Acompañantes', 'Homenajeado', 'Fecha'];
+            const csvContent = [
+                headers.join(','),
+                ...guests.map(guest => [
+                    `"${guest.name}"`,
+                    `"${guest.phone}"`,
+                    `"${guest.attendance}"`,
+                    guest.guests,
+                    `"${guest.favorite_celebrant}"`,
+                    `"${guest.date_time}"`
+                ].join(','))
+            ].join('\n');
+            
+            // Crear enlace de descarga
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `invitados_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.display = 'none';
+            
+            // Añadir al DOM, hacer clic y eliminar
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

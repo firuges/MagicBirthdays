@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación a Evento</title>
+    
+    <!-- Cargar estilos base -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/countdown.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    
+    <!-- El tema se cargará dinámicamente desde JavaScript -->
+    <link id="theme-stylesheet" rel="stylesheet" href="">
+    
+    <!-- Cargar Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Cargar EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header id="event-header">
+            <!-- Se llenará dinámicamente desde config.js -->
+            <div class="confetti-container">
+                <!-- Los confetis se agregarán dinámicamente -->
+            </div>
+            
+            <h1 id="event-title" class="title"></h1>
+            <div id="event-age-badge" class="age-badge"></div>
+            <p id="event-subtitle" class="subtitle"></p>
+            
+            <div id="countdown" class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">00</span>
+                    <span class="countdown-label">Días</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">00</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">00</span>
+                    <span class="countdown-label">Minutos</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">Segundos</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Sección de bienvenida -->
+            <section id="welcome-section" class="card">
+                <h2 id="welcome-message"></h2>
+                <div id="welcome-joke" class="joke"></div>
+                
+                <!-- Los perfiles de los homenajeados se generarán dinámicamente -->
+                <div id="celebrants-container" class="celebrants">
+                    <!-- Se completará por JavaScript -->
+                </div>
+                
+                <p id="invitation-text"></p>
+                
+                <div id="dress-code-note" class="note">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+                
+                <div id="theme-reveal" class="theme-reveal">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </section>
+            
+            <!-- Sección de formulario -->
+            <section id="form-section" class="card">
+                <h2>Confirma tu asistencia</h2>
+                <form id="invitation-form">
+                    <div class="form-group">
+                        <label for="name">Nombre completo*</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attendance" id="attendance-label">¿Asistirás?*</label>
+                        <select id="attendance" name="attendance" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="yes">¡Claro que sí! No me lo perdería</option>
+                            <option value="no">Lo siento, no podré asistir</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guests" id="guests-label">Número de acompañantes</label>
+                        <input type="number" id="guests" name="guests" min="0" max="2" value="0">
+                    </div>
+
+                    <!-- El selector de celebrantes se generará dinámicamente -->
+                    <div class="form-group" id="celebrant-selection-container">
+                        <!-- Se completará por JavaScript -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" id="message-label">¿Algún mensaje especial?</label>
+                        <textarea id="message" name="message" placeholder="Comparte algún mensaje para los homenajeados..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Correo electrónico <small>(opcional - agrégalo si deseas recibir la
+                                invitación por email)</small></label>
+                        <input type="email" id="email" name="email" placeholder="tu@email.com">
+                    </div>
+                    
+                    <!-- Opción de WhatsApp (se mostrará condicionalmente) -->
+                    <div class="form-group" id="whatsapp-option-container" style="display: none;">
+                        <label for="whatsapp-opt" class="checkbox-container">
+                            <input type="checkbox" id="whatsapp-opt" name="whatsapp-opt">
+                            <span>También deseo recibir la invitación por WhatsApp</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn">Enviar confirmación</button>
+                    
+                    <div class="loading-indicator" id="loading-indicator" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Enviando...</span>
+                    </div>
+
+                    <div class="success-message" id="success-message" style="display: none;"></div>
+                    <div class="error-message" id="error-message" style="display: none;"></div>
+                </form>
+            </section>
+            
+            <!-- Sección de contribución/regalo (se mostrará condicionalmente) -->
+            <section id="gift-section" class="card" style="display: none;">
+                <h2>¿Quieres contribuir con un regalo?</h2>
+                <p>Tu presencia es el mejor regalo, pero si prefieres hacer una contribución...</p>
+
+                <div id="bank-accounts-container">
+                    <!-- Las cuentas bancarias se generarán dinámicamente -->
+                </div>
+            </section>
+        </main>
+
+        <footer id="event-footer" class="footer">
+            <p>Hecho con <i class="fas fa-heart"></i> para una ocasión especial</p>
+            <p id="contact-info"></p>
+        </footer>
+    </div>
+
+    <!-- Cargar archivos JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/utilities.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/form-handler.js"></script>
+    <script src="js/whatsapp.js"></script>
+    
+    <!-- Script principal para inicializar la página -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar EmailJS
+            emailjs.init(eventoConfig.emailjs.userID);
+            
+            // Cargar tema visual
+            loadTheme(eventoConfig.tema);
+            
+            // Inicializar la página con la configuración
+            initializeEventPage();
+            
+            // Iniciar cuenta regresiva
+            startCountdown(eventoConfig.fecha);
+        });
+        
+        // Función para cargar el tema CSS apropiado
+        function loadTheme(theme) {
+            const themeStylesheet = document.getElementById('theme-stylesheet');
+            themeStylesheet.href = `css/themes/${theme}.css`;
+        }
+        
+        // Función para inicializar todos los elementos dinámicos de la página
+        function initializeEventPage() {
+            // Configurar encabezado
+            document.getElementById('event-title').textContent = eventoConfig.titulo;
+            document.getElementById('event-subtitle').textContent = eventoConfig.subtitulo;
+            
+            // Determinar la edad para mostrar (tomamos la del primer cumpleañero)
+            if (eventoConfig.cumpleaneros.length > 0) {
+                document.getElementById('event-age-badge').textContent = `${eventoConfig.cumpleaneros[0].edad} años`;
+            }
+            
+            // Configurar mensajes
+            document.getElementById('welcome-message').textContent = eventoConfig.mensajes.bienvenida;
+            
+            // Configurar información de contacto
+            document.getElementById('contact-info').innerHTML = `¿Preguntas? Contacta a <a href="mailto:${eventoConfig.contacto.email}">${eventoConfig.contacto.email}</a>`;
+            
+            // Generar perfiles de los homenajeados
+            generateCelebrantProfiles();
+            
+            // Generar selector de homenajeados si hay más de uno
+            if (eventoConfig.cumpleaneros.length > 1) {
+                generateCelebrantSelector();
+            } else {
+                // Si solo hay un homenajeado, ocultar el selector
+                document.getElementById('celebrant-selection-container').style.display = 'none';
+            }
+            
+            // Configurar el mensaje de invitación
+            let invitationText = eventoConfig.mensajes.invitacion;
+            // Reemplazar placeholders
+            const eventDate = new Date(eventoConfig.fecha);
+            const formattedDate = eventDate.toLocaleDateString('es-ES', {
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric'
+            });
+            const formattedTime = eventDate.toLocaleTimeString('es-ES', {
+                hour: '2-digit', 
+                minute: '2-digit'
+            });
+            
+            invitationText = invitationText
+                .replace('[fecha]', formattedDate)
+                .replace('[hora]', formattedTime)
+                .replace('[ubicacion]', eventoConfig.ubicacion.nombre);
+                
+            document.getElementById('invitation-text').textContent = invitationText;
+            
+            // Configurar nota de código de vestimenta
+            document.getElementById('dress-code-note').innerHTML = `
+                <h4><i class="fas fa-tshirt"></i> Código de vestimenta especial</h4>
+                <p>${eventoConfig.mensajes.codigoVestimenta}</p>
+            `;
+            
+            // Configurar límite para confirmar asistencia
+            if (eventoConfig.formulario.limiteSenaleAsistencia) {
+                const limitDate = new Date(eventoConfig.formulario.limiteSenaleAsistencia);
+                const formattedLimitDate = limitDate.toLocaleDateString('es-ES', {
+                    day: 'numeric',
+                    month: 'long'
+                });
+                
+                document.getElementById('attendance-label').textContent = 
+                    `¿Asistirás? Tiempo limite para confirmar ${formattedLimitDate}*`;
+            }
+            
+            // Configurar máximo de acompañantes
+            document.getElementById('guests').max = eventoConfig.formulario.maxAcompanantes;
+            document.getElementById('guests-label').textContent = 
+                `Número de acompañantes (máximo ${eventoConfig.formulario.maxAcompanantes})`;
+            
+            // Mostrar opción de WhatsApp si está habilitada
+            if (eventoConfig.formulario.incluirWhatsapp) {
+                document.getElementById('whatsapp-option-container').style.display = 'block';
+            }
+            
+            // Mostrar sección de regalo/donación si está habilitada
+            if (eventoConfig.formulario.incluirDonacion) {
+                document.getElementById('gift-section').style.display = 'block';
+                generateBankAccounts();
+            }
+            
+            // Agregar confeti decorativo
+            addConfetti();
+        }
+        
+        // Genera los perfiles de los homenajeados
+        function generateCelebrantProfiles() {
+            const container = document.getElementById('celebrants-container');
+            container.innerHTML = ''; // Limpiar contenedor
+            
+            eventoConfig.cumpleaneros.forEach((celebrant, index) => {
+                const profileDiv = document.createElement('div');
+                profileDiv.className = 'celebrant';
+                
+                profileDiv.innerHTML = `
+                    <div class="profile-image profile-image-${index + 1}">${celebrant.nombre.charAt(0)}</div>
+                    <h3>${celebrant.nombre}</h3>
+                    <p>${celebrant.descripcion}</p>
+                `;
+                
+                container.appendChild(profileDiv);
+            });
+        }
+        
+        // Genera el selector de homenajeados para el formulario
+        function generateCelebrantSelector() {
+            const container = document.getElementById('celebrant-selection-container');
+            
+            // Crear el título/etiqueta de la sección
+            const label = document.createElement('label');
+            label.textContent = '¿Por quién vienes principalmente? 👀 *';
+            label.htmlFor = 'favorite-celebrant';
+            
+            // Crear el contenedor para las opciones
+            const selectorDiv = document.createElement('div');
+            selectorDiv.className = 'celebrant-selector';
+            
+            // Generar las opciones para cada homenajeado
+            eventoConfig.cumpleaneros.forEach((celebrant, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'celebrant-option';
+                
+                optionDiv.innerHTML = `
+                    <input type="radio" id="celebrant-${index}" name="favorite-celebrant" 
+                           value="${celebrant.nombre}" required>
+                    <label for="celebrant-${index}" class="option-label">
+                        <div class="mini-profile">${celebrant.nombre.charAt(0)}</div>
+                        <span>${celebrant.nombre}</span>
+                    </label>
+                `;
+                
+                selectorDiv.appendChild(optionDiv);
+            });
+            
+            // Agregar todo al contenedor
+            container.appendChild(label);
+            container.appendChild(selectorDiv);
+        }
+        
+        // Genera los datos de cuentas bancarias
+        function generateBankAccounts() {
+            const container = document.getElementById('bank-accounts-container');
+            container.innerHTML = ''; // Limpiar el contenedor
+            
+            // Si hay solo un homenajeado, mostrar su cuenta directamente
+            if (eventoConfig.cumpleaneros.length === 1) {
+                const celebrant = eventoConfig.cumpleaneros[0];
+                
+                const accountDiv = document.createElement('div');
+                accountDiv.className = 'bank-account';
+                
+                accountDiv.innerHTML = `
+                    <h4>Cuenta Bancaria ${celebrant.nombre}</h4>
+                    <p class="bank-account-number">${celebrant.cuenta}</p>
+                `;
+                
+                container.appendChild(accountDiv);
+            } 
+            // Si hay múltiples homenajeados, vincular con la selección del formulario
+            else {
+                // Crear una cuenta bancaria que cambiará según la selección
+                const accountDiv = document.createElement('div');
+                accountDiv.className = 'bank-account';
+                
+                accountDiv.innerHTML = `
+                    <h4>Cuenta Bancaria <span id="account-owner">${eventoConfig.cumpleaneros[0].nombre}</span></h4>
+                    <p class="bank-account-number" id="account-number">${eventoConfig.cumpleaneros[0].cuenta}</p>
+                    <p><small>Esta cuenta pertenece a <span id="account-owner-b">${eventoConfig.cumpleaneros[0].nombre}</span>, pero no te preocupes, compartimos los fondos... o al menos eso es lo que le decimos. 😉</small></p>
+                `;
+                
+                container.appendChild(accountDiv);
+                
+                // Agregar script para actualizar la cuenta según la selección
+                const radioInputs = document.querySelectorAll('input[name="favorite-celebrant"]');
+                radioInputs.forEach(input => {
+                    input.addEventListener('change', function() {
+                        const selectedName = this.value;
+                        const selectedCelebrant = eventoConfig.cumpleaneros.find(c => c.nombre === selectedName);
+                        
+                        if (selectedCelebrant) {
+                            document.getElementById('account-owner').textContent = selectedCelebrant.nombre;
+                            document.getElementById('account-owner-b').textContent = selectedCelebrant.nombre;
+                            document.getElementById('account-number').textContent = selectedCelebrant.cuenta;
+                        }
+                    });
+                });
+            }
+        }
+        
+        // Agrega elementos de confeti decorativos
+        function addConfetti() {
+            const container = document.querySelector('.confetti-container');
+            
+            // Colores según el tema
+            let colors = ['#ff00ff', '#00ffff', '#00ff00', '#ffff00', '#9d00ff']; // Colores predeterminados (neón)
+            
+            // Crear confetis
+            for (let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Posición y animación aleatorias
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 5}s`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(confetti);
+            }
+        }
+    </script>
+</body>
+</html>

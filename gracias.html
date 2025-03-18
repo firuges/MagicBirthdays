@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias por confirmar!</title>
+    
+    <!-- Cargar estilos base -->
+    <link rel="stylesheet" href="css/base.css">
+    
+    <!-- El tema se cargará dinámicamente desde JavaScript -->
+    <link id="theme-stylesheet" rel="stylesheet" href="">
+    
+    <!-- Cargar Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            margin: 0;
+        }
+        
+        .thank-you-card {
+            max-width: 600px;
+            width: 100%;
+            padding: 2.5rem;
+            background-color: rgba(25, 25, 30, 0.9);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .icon-container {
+            font-size: 3rem;
+            margin: 1rem 0;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor para efectos visuales -->
+    <div id="effects-container"></div>
+    
+    <div class="thank-you-card" id="thank-you-card">
+        <div class="icon-container">
+            <i class="fas fa-check-circle" id="thank-you-icon"></i>
+        </div>
+        <h1 id="thank-you-title">¡Gracias por confirmar tu asistencia!</h1>
+        <p id="thank-you-message">Hemos recibido tu respuesta y estamos ansiosos por verte en el evento.</p>
+        <p id="thank-you-note" class="note-text"></p>
+        <p id="thank-you-contact">Si tienes alguna duda, ponte en contacto con nosotros.</p>
+        <a href="index.html" class="btn" id="back-button">Volver a la invitación</a>
+    </div>
+    
+    <!-- Cargar archivos JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/utilities.js"></script>
+    <script src="js/whatsapp.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar la configuración del tema
+            if (window.eventoConfig) {
+                // Aplicar tema
+                loadTheme(eventoConfig.tema);
+                
+                // Aplicar mensaje de agradecimiento personalizado
+                if (eventoConfig.mensajes && eventoConfig.mensajes.agradecimiento) {
+                    document.getElementById('thank-you-message').textContent = eventoConfig.mensajes.agradecimiento;
+                }
+                
+                // Aplicar nota de código de vestimenta
+                if (eventoConfig.mensajes && eventoConfig.mensajes.codigoVestimenta) {
+                    document.getElementById('thank-you-note').textContent = eventoConfig.mensajes.codigoVestimenta;
+                }
+                
+                // Aplicar información de contacto
+                if (eventoConfig.contacto && eventoConfig.contacto.email) {
+                    const contactText = `Si tienes alguna duda, ponte en contacto con nosotros: ${eventoConfig.contacto.email}`;
+                    document.getElementById('thank-you-contact').textContent = contactText;
+                }
+                
+                // Personalizar el icono según el tema
+                customizeThankYouIcon();
+                
+                // Agregar efectos visuales
+                addVisualEffects('effects-container', 'confetti', 20);
+            } else {
+                // Si no hay configuración, cargar el tema predeterminado
+                document.getElementById('theme-stylesheet').href = 'css/themes/neon.css';
+            }
+        });
+        
+        // Función para cargar el tema CSS
+        function loadTheme(theme) {
+            const themeStylesheet = document.getElementById('theme-stylesheet');
+            themeStylesheet.href = `css/themes/${theme}.css`;
+        }
+        
+        // Personalizar el icono según el tema
+        function customizeThankYouIcon() {
+            const icon = document.getElementById('thank-you-icon');
+            if (!icon) return;
+            
+            // Obtener el tema actual
+            const theme = eventoConfig.tema || 'neon';
+            
+            // Personalizar según el tema
+            switch (theme) {
+                case 'neon':
+                    icon.className = 'fas fa-check-circle';
+                    icon.style.color = '#00ff00'; // Verde neón
+                    break;
+                case 'floral':
+                    icon.className = 'fas fa-flower';
+                    icon.style.color = '#ff80ab'; // Rosa floral
+                    break;
+                case 'elegant':
+                    icon.className = 'fas fa-glass-cheers';
+                    icon.style.color = '#d4af37'; // Dorado
+                    break;
+                case 'rustic':
+                    icon.className = 'fas fa-leaf';
+                    icon.style.color = '#8d6e63'; // Marrón
+                    break;
+                case 'kids':
+                    icon.className = 'fas fa-birthday-cake';
+                    icon.style.color = '#ff5722'; // Naranja
+                    break;
+                default:
+                    icon.className = 'fas fa-check-circle';
+                    icon.style.color = '#00ff00';
+            }
+        }
+    </script>
+</body>
+</html>
