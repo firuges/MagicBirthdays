@@ -186,6 +186,7 @@
     <!-- Script principal para inicializar la página -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const currentTheme = eventoConfig.tema;
             // Inicializar EmailJS
             emailjs.init(eventoConfig.emailjs.userID);
             
@@ -197,6 +198,17 @@
             
             // Iniciar cuenta regresiva
             startCountdown(eventoConfig.fecha);
+            if (eventoConfig.temas &&
+                eventoConfig.temas[currentTheme] &&
+                eventoConfig.temas[currentTheme].scriptsAdicionales) {
+
+                eventoConfig.temas[currentTheme].scriptsAdicionales.forEach(script => {
+                    const scriptElement = document.createElement('script');
+                    scriptElement.src = script;
+                    scriptElement.defer = true;
+                    document.body.appendChild(scriptElement);
+                });
+            }
         });
         
         // Función para cargar el tema CSS apropiado
